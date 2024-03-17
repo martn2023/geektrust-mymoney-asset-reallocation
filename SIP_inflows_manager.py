@@ -13,25 +13,3 @@ class SIP:
         for asset_class_name in self.__holdings:
             self.__sip_amount = self.__inflows_by_asset_class[asset_class_name]
             self.__holdings[asset_class_name]._add_sip_inflow(self.__sip_amount)
-
-
-
-    """
-    temp moved from portfolio balances
-    
-    def _calculate_monthly_change(self, changes: list, month: str, sip_instance):
-        if len(self.__monthly_balances) > 1:  ##a fancy way of saying that we don't do SIP injections same month as initial allocation injection
-            for asset_class_name in self.__ordered_asset_classes:
-
-
-
-        self.__holdings['equities']._change_balance_percentage(
-                changes[0])  # this could be refactored into a FOR loop running through index pos with dual purposes
-        self.__holdings['debt']._change_balance_percentage(changes[1])
-        self.__holdings['gold']._change_balance_percentage(changes[2])
-
-        if month in self.__rebalance_months:
-            self.__rebalance_assets()
-
-        self._document_current_holdings()
-    """
