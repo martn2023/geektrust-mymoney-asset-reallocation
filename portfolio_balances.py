@@ -1,9 +1,11 @@
 from asset_classes import AssetClass
 class Portfolio:
     def __init__(self):
+        self.__ordered_asset_classes = ['equities', 'debt', 'gold'] #warning that that the description flips debt and equity positions, but not on I/O
         self.__holdings = {}
         self.__monthly_balances = [] #suggested that when you create the monthly balances, you have element of index 0 with the allocation values
-        #PLACEHOLDER FOR SETTING TARGET ALLOCATIONS, MAYBE IN A DICTIONARY? MAYBE NOT NECESSARY BECAUSE IT CAN CALCULATE ON MONTH 0????
+        self.__rebalance_months = ['JUNE', 'DECEMBER']
+        self.__target_allocations = {}
         self.__create_calendar_indexing()  #consider having calendar creation as a new file
 
 
@@ -23,18 +25,67 @@ class Portfolio:
         self.__calendar_indexing['DECEMBER'] = 12
 
     def _create_new_asset_classes(self, allocation_instructions): # comes from controller, which pulled from file reader
-        self.__holdings["debt"] = AssetClass("debt", allocation_instructions[0])
-        self.__holdings["equities"] = AssetClass("equities", allocation_instructions[1])
-        self.__holdings["gold"] = AssetClass("gold", allocation_instructions[2])
-        #print("holdings populated", self.__holdings)
 
-    def __document_current_holdings(self):
+        self.__sum_of_allocations = 0
+        for index_pos in range(len(self.__ordered_asset_classes)):
+            self.__holdings[self.__ordered_asset_classes[index_pos]] = AssetClass(self.__ordered_asset_classes[index_pos] , allocation_instructions[index_pos])
+            self.__sum_of_allocations += allocation_instructions[index_pos]
+
+        for index_pos in range(len(self.__ordered_asset_classes)):
+            self.__target_allocations[self.__ordered_asset_classes[index_pos]]   = allocation_instructions[index_pos]/self.__sum_of_allocations
+
+        self._report_current_holdings()
+
+
+
+    def _document_current_holdings(self):
         self.__current_month_holdings = []
+        for asset_class_name in self.__ordered_asset_classes:
+            self.__current_month_holdings.append(self.__holdings[asset_class_name]._get_current_balance())
 
         self.__monthly_balances.append(self.__current_month_holdings)
+        #print("document extended", self.__monthly_balances)
+
+    def _calculate_monthly_change(self, changes: list, month: str, sip_instance):
+        if len(self.__monthly_balances) > 1: ##a fancy way of saying that we don't do SIP injections same month as initial allocation injection
+            print("SIMP ATTMEPTS")
+            for asset_class_name in self.__ordered_asset_classes:
+                self.__sip_amount = sip_instance._get_SIP_inflow_by_asset_class(asset_class_name)
+                self.__holdings[asset_class_name]._add_sip_inflow(self.__sip_amount)
+
+        print("--AFTER SIP")
+        self._report_current_holdings()
+
+        self.__holdings['equities']._change_balance_percentage(changes[0]) #this could be refactored into a FOR loop running through index pos with dual purposes
+        self.__holdings['debt']._change_balance_percentage(changes[1])
+        self.__holdings['gold']._change_balance_percentage(changes[2])
+
+        print("-AFTER GROWTH")
+        self._report_current_holdings()
+
+
+        if month in self.__rebalance_months:
+            print("rebal tried")
+            self.__rebalance_assets()
+
+        print("---AFTER REBALANCE")
+        self._report_current_holdings()
+
+        self._document_current_holdings()
+
+    def __rebalance_assets(self):
+        print("rebalance starting with", self.__target_allocations)
+        self.__current_total = 0
+        for asset_class in self.__holdings:
+            self.__current_total += self.__holdings[asset_class]._get_current_balance()
+        print("current total", self.__current_total)
+
+        for asset_class in self.__holdings:
+            self.__rebalanced_value = int(self.__target_allocations[asset_class] * self.__current_total)
+            self.__holdings[asset_class]._rebalance_to_set_value(self.__rebalanced_value)
 
 
     def _report_current_holdings(self):
-        print("report current holdings")
+        #print("report current holdings")
         for asset_class in self.__holdings:
-            print(asset_class, self.__holdings[asset_class]._get_current_balance())
+            print("asset class", asset_class, self.__holdings[asset_class]._get_current_balance())

@@ -4,9 +4,7 @@ from controller import Controller
 from asset_classes import AssetClass
 
 def main():
-    print("")
-    print("")
-    print("")
+
     controller_instance = Controller()
 
     if len(argv) != 2:
@@ -17,14 +15,7 @@ def main():
 
     controller_instance._accept_instructions_instance(instructions_instance)
 
-    """ THIS CODE PROVES WE CAN GROW ASSET CLASS OBJECTS AND STORE THE THEN-CURRENT VALUES IN THE PORTFOLIO BALANCE'S BALANCE SHEET
-    n = 5
-    new_dict = {}
-    new_dict["A"] = n
-    n+=7
-    new_dict["B"] = n
-    print(new_dict)
-    """
+    #print(100, 200, 300)
 
 if __name__ == "__main__":
     main()
