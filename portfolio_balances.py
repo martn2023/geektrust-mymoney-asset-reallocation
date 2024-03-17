@@ -8,7 +8,6 @@ class Portfolio:
         self.__target_allocations = {}
         self.__create_calendar_indexing()  #consider having calendar creation as a new file
 
-
     def __create_calendar_indexing(self): # if the code gets too long in this file, you can compress it into 1 line of dictionary creation, or make calendar a new file?
         self.__calendar_indexing = {}
         self.__calendar_indexing['JANUARY'] = 1
@@ -83,13 +82,19 @@ class Portfolio:
             self.__rebalanced_value = int(self.__target_allocations[asset_class] * self.__current_total)
             self.__holdings[asset_class]._rebalance_to_set_value(self.__rebalanced_value)
 
+    """
     def _report_current_holdings(self):
         print("**********report current holdings")
         for asset_class in self.__holdings:
             print("asset class", asset_class, self.__holdings[asset_class]._get_current_balance())
+    """
 
     def _report_specific_month(self, month: str):
-        print("spec month")
+        self.__monthly_figures = self.__monthly_balances[self.__calendar_indexing[month]]
+        self.__stringed_monthly_balance = str(self.__monthly_figures[0])
+        for subsequent_elemental in self.__monthly_figures[1:]:
+            self.__stringed_monthly_balance += " " + str(subsequent_elemental)
+        print(self.__stringed_monthly_balance)
 
 
     def _report_recent_rebalance(self):

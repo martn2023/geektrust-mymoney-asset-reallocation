@@ -5,11 +5,6 @@ class Controller:
     def __init__(self):
         pass
 
-    """
-    def _get_asset_class_ordering(self): #optimization not needed now
-        return self.__asset_class_ordering
-    """
-
     def _accept_instructions_instance(self, instructions_instance):
         self.__accepted_instructions = instructions_instance._get_instructions()
         #print(self.__accepted_instructions)
@@ -18,7 +13,6 @@ class Controller:
     def __process_instruction(self):
         for instruction_line in self.__accepted_instructions:  #warning on hardcoding specific instruction words
             self.__current_instruction = instruction_line[0]
-            #print("-----current instruction", self.__current_instruction)
 
             if self.__current_instruction == "ALLOCATE": ##indirectly, creation of the portfolio balances instance
                 self.__portfolio_instance = Portfolio()
