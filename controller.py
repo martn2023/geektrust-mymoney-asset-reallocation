@@ -30,6 +30,12 @@ class Controller:
                 self.__sip_instance = SIP(instruction_line[1:])
 
             elif self.__current_instruction == "CHANGE":
-                print("---CHANGE STARTING", instruction_line)
+                #print("---CHANGE STARTING", instruction_line)
                 self.__portfolio_instance._calculate_monthly_change(instruction_line[1:-1], instruction_line[-1], self.__sip_instance)
-                print("---CHANGE COMPLETE")
+
+
+            elif self.__current_instruction == "BALANCE":
+                self.__portfolio_instance._report_specific_month(instruction_line[-1])
+
+            elif self.__current_instruction == "REBALANCE":
+                self.__portfolio_instance._report_recent_rebalance()

@@ -15,7 +15,6 @@ def main():
 
     controller_instance._accept_instructions_instance(instructions_instance)
 
-    #print(100, 200, 300)
 
 if __name__ == "__main__":
     main()
