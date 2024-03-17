@@ -1,3 +1,5 @@
+
+
 class AssetClass:
     def __init__(self, name: str, allocated_dollars):
         self.__name = name

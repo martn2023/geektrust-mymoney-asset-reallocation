@@ -1,0 +1,15 @@
+After 1 day of coding, I received these criticisms:
+
+1. The Portfolio class is doing too much. Solutions include
+    A) making a new class to handle Rebalancing
+        which the Controller will trigger upon "rebalance" commands
+        Rebalancer will call a Portfolio function to retrieve assets
+        do some calculations
+        will feed those calculations into a changevalue function of the AssetClass object to promote encapsulation
+
+        have it store that as a field
+        create a function for returning the last field stored OR printing an error message if field is empty
+
+    B) skipping the Portfolio alltoggether and triggering SIP's new function for inducing monthly inflows
+
+2. nesting loop logic should be reduced
