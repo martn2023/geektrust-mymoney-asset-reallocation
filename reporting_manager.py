@@ -2,7 +2,7 @@ class Report:
     def __init__(self, portfolio_instance):
         self.__portfolio_instance = portfolio_instance
         self.__create_calendar_indexing()
-
+        self.__months_per_rebalance = 6
     def __create_calendar_indexing(self): # if the code gets too long in this file, you can compress it into 1 line of dictionary creation, or make calendar a new file?
         self.__calendar_indexing = {}
         self.__calendar_indexing['JANUARY'] = 1
@@ -27,12 +27,13 @@ class Report:
         print(self.__stringed_single_month_balances)
 
     def _print_recent_rebalance(self):
-        if len(self.__portfolio_instance._get_monthly_balances()) <= 6:  ## 0index for allocation, so we need indices including 0 through 6 to have a rebalance at June or later
+        self.__index_skipping = 1
+        if len(self.__portfolio_instance._get_monthly_balances()) <= self.__months_per_rebalance:  ## 0index for allocation, so we need indices including 0 through 6 to have a rebalance at June or later
             print("CANNOT_REBALANCE")
         else:
-            self.__rebalance_index = (len(self.__portfolio_instance._get_monthly_balances()) - 1) // 6 * 6
+            self.__rebalance_index = (len(self.__portfolio_instance._get_monthly_balances()) - self.__index_skipping) // self.__months_per_rebalance * self.__months_per_rebalance
             self.__rebalance_array = self.__portfolio_instance._get_monthly_balances()[self.__rebalance_index]
             self.__stringed_rebalance = str(self.__rebalance_array[0])
-            for rebalance_element in self.__rebalance_array[1:]:
+            for rebalance_element in self.__rebalance_array[self.__index_skipping:]:
                 self.__stringed_rebalance += " " + str(rebalance_element)
             print(self.__stringed_rebalance)

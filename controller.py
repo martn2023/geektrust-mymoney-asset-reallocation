@@ -35,5 +35,3 @@ class Controller:
 
             elif self.__current_instruction == "REBALANCE":
                 self.__reporting_instance._print_recent_rebalance()
-
-            #self.__portfolio_instance._report_monthly_balances()

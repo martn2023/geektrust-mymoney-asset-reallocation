@@ -29,9 +29,11 @@ class FileReader:
                     self.__reformatted_line[pre_correction_index] = int(self.__reformatted_line[pre_correction_index])
 
             elif self.__input_type == "CHANGE":
-                for pre_correction_index in range(1, len(self.__reformatted_line)-1):
-                    self.__reformatted_line[pre_correction_index] = self.__reformatted_line[pre_correction_index][:-1] # to clip % sign
-                    self.__reformatted_line[pre_correction_index] = float(self.__reformatted_line[pre_correction_index])/100
+                self.__divider_for_two_decimals = 100
+                self.__change_index_borders = 1
+                for pre_correction_index in range(self.__change_index_borders, len(self.__reformatted_line)-self.__change_index_borders):
+                    self.__reformatted_line[pre_correction_index] = self.__reformatted_line[pre_correction_index][:-self.__change_index_borders] # to clip % sign
+                    self.__reformatted_line[pre_correction_index] = float(self.__reformatted_line[pre_correction_index])/self.__divider_for_two_decimals
 
 
     def _get_instructions(self):
