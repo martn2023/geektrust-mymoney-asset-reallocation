@@ -1,7 +1,7 @@
 class RebalancingManager:
-    def __init__(self, eligible_months: list, portfolio_instance):
+    def __init__(self, portfolio_instance):
         self.__portfolio_instance = portfolio_instance
-        self.__rebalancing_months = eligible_months
+        self.__rebalancing_months = ['JUNE','DECEMBER']
         self.__target_allocations = portfolio_instance._get_target_allocations()
         self.__last_rebalance = []
 
