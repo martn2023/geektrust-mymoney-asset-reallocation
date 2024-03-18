@@ -1,6 +1,7 @@
 from portfolio_balances import Portfolio
 from SIP_inflows_manager import SIP
 from change_manager import ChangeManager
+from rebalancing_manager import RebalancingManager
 
 class Controller:
     def __init__(self):
@@ -16,7 +17,7 @@ class Controller:
 
             if self.__current_instruction == "ALLOCATE": ##indirectly, creation of the portfolio balances instance
                 self.__portfolio_instance._create_new_asset_classes(instruction_line[1:]) ##skipping over instruction header
-                self.__portfolio_instance._document_current_holdings()
+                self.__rebalancing_manager_instance = RebalancingManager(['JUNE', 'DECEMBER'], self.__portfolio_instance) #hardcoded months via fact pattern
 
             elif self.__current_instruction == "SIP": ##creation of the SIP object, which you could have done on init and then updated here
                 self.__sip_instance = SIP(instruction_line[1:], self.__portfolio_instance)
@@ -25,11 +26,12 @@ class Controller:
             elif self.__current_instruction == "CHANGE":
                 self.__sip_instance._perform_monthly_SIP_inflows(instruction_line[-1])
                 self.__change_manager_instance._calculate_monthly_change(instruction_line[1:-1])
-                self.__portfolio_instance._report_current_holdings()
+                self.__rebalancing_manager_instance._attempt_rebalance(instruction_line[-1])
 
-
-            #elif self.__current_instruction == "BALANCE":
-                #self.__portfolio_instance._report_specific_month(instruction_line[-1])
+            elif self.__current_instruction == "BALANCE":
+                self.__portfolio_instance._report_specific_month(instruction_line[-1])
 
             elif self.__current_instruction == "REBALANCE":
                 self.__portfolio_instance._report_recent_rebalance()
+
+            #self.__portfolio_instance._report_monthly_balances()

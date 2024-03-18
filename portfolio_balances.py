@@ -11,6 +11,8 @@ class Portfolio:
     def _get_holdings(self):
         return self.__holdings
 
+    def _get_target_allocations(self):
+        return self.__target_allocations
 
     def __create_calendar_indexing(self): # if the code gets too long in this file, you can compress it into 1 line of dictionary creation, or make calendar a new file?
         self.__calendar_indexing = {}
@@ -36,27 +38,13 @@ class Portfolio:
         for index_pos in range(len(self.__ordered_asset_classes)):
             self.__target_allocations[self.__ordered_asset_classes[index_pos]]   = allocation_instructions[index_pos]/self.__sum_of_allocations
 
+        self._document_current_holdings()
+
     def _document_current_holdings(self):
         self.__current_month_holdings = []
         for asset_class_name in self.__ordered_asset_classes:
             self.__current_month_holdings.append(self.__holdings[asset_class_name]._get_current_balance())
         self.__monthly_balances.append(self.__current_month_holdings)
-
-    def _report_current_holdings(self):
-        report = []
-        for asset_class_name in self.__ordered_asset_classes:
-            report.append(self.__holdings[asset_class_name]._get_current_balance())
-        print(report)
-
-
-    def __rebalance_assets(self):
-        self.__current_total = 0
-        for asset_class in self.__holdings:
-            self.__current_total += self.__holdings[asset_class]._get_current_balance()
-
-        for asset_class in self.__holdings:
-            self.__rebalanced_value = int(self.__target_allocations[asset_class] * self.__current_total)
-            self.__holdings[asset_class]._rebalance_to_set_value(self.__rebalanced_value)
 
     def _report_specific_month(self, month: str):
         self.__monthly_figures = self.__monthly_balances[self.__calendar_indexing[month]]
@@ -75,3 +63,12 @@ class Portfolio:
             for rebalance_element in self.__rebalance_array[1:]:
                 self.__stringed_rebalance += " " + str(rebalance_element)
             print(self.__stringed_rebalance)
+
+    """
+    
+    #de-activating with testing finished
+    
+    def _report_monthly_balances(self):
+        print(self.__monthly_balances)
+    
+    """
