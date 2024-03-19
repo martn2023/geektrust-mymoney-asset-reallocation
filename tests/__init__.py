@@ -36,27 +36,39 @@ class TestingPortfolioClass(unittest.TestCase): #unit test cleared by GeekTrust
 class TestingAssetClassClass(unittest.TestCase): ##Geektrust says this one def works
     def test_data_type_asset_class_balance(self):
         #ARRANGE
-
         hypothetical_asset_class_name_initialized = "gold"
         hypothetical_asset_class_cash_deposited = 28537 #has to be an integer
         expected_data_type_asset_class_balance = int
         #ACT
         asset_class_instance = AssetClass(hypothetical_asset_class_name_initialized, hypothetical_asset_class_cash_deposited)
-
-
         # ASSERT, https://docs.python.org/3/library/unittest.html
         actual_data_type_asset_class_balance = type(asset_class_instance._get_current_balance())
         self.assertEqual(expected_data_type_asset_class_balance, actual_data_type_asset_class_balance)
 
+    def test_1001_balance_losing_17_percent(self):
+        #ARRANGE
+        asset_class_instance = AssetClass("equities", 1001)
+        sample_change_in_value_percentage = -0.17
+        expected_new_balance = 830 # 1001 minus 17% = 830.83, but it should be rounded down to 830
+        #ACT
+        asset_class_instance._change_balance_percentage(sample_change_in_value_percentage)
+        # ASSERT, https://docs.python.org/3/library/unittest.html
+        actual_new_balance = asset_class_instance._get_current_balance()
+        self.assertEqual(expected_new_balance , actual_new_balance)
 
-
-
+    def test_debt_rebalancing(self):
+        #ARRANGE
+        asset_class_instance = AssetClass("debt", 2000)
+        desired_debt_balance_after_rebalance = 3000
+        expected_new_balance = desired_debt_balance_after_rebalance # 1 to 1 change
+        #ACT
+        asset_class_instance._rebalance_to_set_value(3000)
+        # ASSERT, https://docs.python.org/3/library/unittest.html
+        actual_new_balance = asset_class_instance._get_current_balance()
+        self.assertEqual(expected_new_balance , actual_new_balance)
 
 if __name__ == '__main__':
     unittest.main()
 
-"""
-try without this code and see what happens
-"""
 
 
