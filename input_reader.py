@@ -38,3 +38,6 @@ class FileReader:
 
     def _get_instructions(self):
         return self.__data_lines
+
+    def _get_file_path(self): # stupid that i only made this for testing purposes
+        return self.__file_path

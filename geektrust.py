@@ -5,6 +5,13 @@ from asset_classes import AssetClass
 
 
 def main():
+    welcome_message = "hi, john"
+    data_type = type(welcome_message)
+    if data_type == str:
+        print("string")
+    else:
+        print("not string"
+              )
     expected_number_of_arguments_input = 2
     file_input_index = 1
 
