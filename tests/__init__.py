@@ -15,6 +15,7 @@ installing coverage with
 import unittest
 from portfolio_balances import Portfolio
 from input_reader import FileReader
+from asset_classes import AssetClass
 import coverage
 print(coverage.__file__)
 
@@ -46,6 +47,20 @@ class TestingPortfolioClass(unittest.TestCase): #not sure why "TestCase" is bein
         self.assertEqual(expected_output_allocation, actual_results)
 
 
+class TestingAssetClassClass(unittest.TestCase):
+    def test_data_type_asset_class_balance(self):
+        #ARRANGE
+
+        hypothetical_asset_class_name_initialized = "gold"
+        hypothetical_asset_class_cash_deposited = 28537 #has to be an integer
+        expected_data_type_asset_class_balance = int
+        #ACT
+        asset_class_instance = AssetClass(hypothetical_asset_class_name_initialized, hypothetical_asset_class_cash_deposited)
+
+
+        # ASSERT, https://docs.python.org/3/library/unittest.html
+        actual_data_type_asset_class_balance = type(asset_class_instance._get_current_balance())
+        self.assertEqual(expected_data_type_asset_class_balance, actual_data_type_asset_class_balance)
 
 
 
