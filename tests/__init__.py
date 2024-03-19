@@ -1,13 +1,21 @@
-import unittest
-from portfolio_balances import Portfolio
 
 """
 the command to do unittesting, taken from the GeekTrust default readme
-    
+
     python -m unittest discover
     coverage run -m unittest discover
     python -m coverage run -m unittest
+
+it didn't work so try
+
+installing coverage with
+    pip install --user coverag
+
 """
+import unittest
+from portfolio_balances import Portfolio
+import coverage
+print(coverage.__file__)
 
 
 class TestingPortfolioClass(unittest.TestCase): #not sure why "TestCase" is being summoned but it's being advised in ChatGPT and is also in friend's similar coding challenge
@@ -24,10 +32,12 @@ class TestingPortfolioClass(unittest.TestCase): #not sure why "TestCase" is bein
         actual_results = portfolio_instance._get_target_allocations() #this only worked bc I had a GET function made, could test it out later by touching the field directly?
         self.assertEqual(expected_output_allocation, actual_results)
 
-"""
-try without this code and see what happens
 
 if __name__ == '__main__':
     unittest.main()
 
 """
+try without this code and see what happens
+"""
+
+
