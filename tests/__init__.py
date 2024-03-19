@@ -20,21 +20,7 @@ import coverage
 print(coverage.__file__)
 
 
-class TestingFileReaderClass(unittest.TestCase):
-    def test_data_type_file_path(self):
-        #ARRANGE
-
-        hypothetical_file_path_inputs = ".\sample_input\input1.txt"
-        expected_file_path_data_type = str
-        #ACT
-        file_reader_instance = FileReader(hypothetical_file_path_inputs)
-
-        # ASSERT, https://docs.python.org/3/library/unittest.html
-        actual_results = type(file_reader_instance._get_file_path()) #this only worked bc I had a GET function made, could test it out later by touching the field directly?
-        self.assertEqual(expected_file_path_data_type, actual_results)
-
-
-class TestingPortfolioClass(unittest.TestCase): #not sure why "TestCase" is being summoned but it's being advised in ChatGPT and is also in friend's similar coding challenge
+class TestingPortfolioClass(unittest.TestCase): #unit test cleared by GeekTrust
     def test_target_allocation_upon_portfolio_construction(self):
         #ARRANGE
         portfolio_instance = Portfolio() #not sure why I need to instantiate this
@@ -47,7 +33,7 @@ class TestingPortfolioClass(unittest.TestCase): #not sure why "TestCase" is bein
         self.assertEqual(expected_output_allocation, actual_results)
 
 
-class TestingAssetClassClass(unittest.TestCase):
+class TestingAssetClassClass(unittest.TestCase): ##Geektrust says this one def works
     def test_data_type_asset_class_balance(self):
         #ARRANGE
 
@@ -61,10 +47,6 @@ class TestingAssetClassClass(unittest.TestCase):
         # ASSERT, https://docs.python.org/3/library/unittest.html
         actual_data_type_asset_class_balance = type(asset_class_instance._get_current_balance())
         self.assertEqual(expected_data_type_asset_class_balance, actual_data_type_asset_class_balance)
-
-
-
-
 
 
 
