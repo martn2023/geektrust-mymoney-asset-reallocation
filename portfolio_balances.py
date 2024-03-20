@@ -31,3 +31,7 @@ class Portfolio:
 
     def _get_monthly_balances(self):
         return self.__monthly_balances
+
+    def _factor_in_sip_inflows(self, inflows_by_asset_class: dict):
+        for asset_class in inflows_by_asset_class:
+            self.__holdings[asset_class]._add_sip_inflow(inflows_by_asset_class[asset_class])
