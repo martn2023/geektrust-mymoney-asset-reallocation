@@ -7,6 +7,9 @@ from reporting_manager import Report
 class Controller:
     def __init__(self):
         self.__portfolio_instance = Portfolio()
+        self.__change_manager_instance = ChangeManager(self.__portfolio_instance)  # moved to initialization because it only needs a portfolio object
+        self.__rebalancing_manager_instance = RebalancingManager(self.__portfolio_instance)  # moved to initialization because it only needs a portfolio object
+        self.__reporting_instance = Report(self.__portfolio_instance) #moved to initialization because it only needs a portfolio object
 
     def _accept_instructions_instance(self, instructions_instance):
         self.__accepted_instructions = instructions_instance._get_instructions()
@@ -18,12 +21,9 @@ class Controller:
 
             if self.__current_instruction == "ALLOCATE": ##indirectly, creation of the portfolio balances instance
                 self.__portfolio_instance._create_new_asset_classes(instruction_line[1:]) ##skipping over instruction header
-                self.__rebalancing_manager_instance = RebalancingManager(self.__portfolio_instance) #hardcoded months via fact pattern
-                self.__reporting_instance = Report(self.__portfolio_instance)
 
             elif self.__current_instruction == "SIP": ##creation of the SIP object, which you could have done on init and then updated here
                 self.__sip_instance = SIP(instruction_line[1:], self.__portfolio_instance)
-                self.__change_manager_instance = ChangeManager(self.__portfolio_instance)
 
             elif self.__current_instruction == "CHANGE":
                 self.__sip_instance._perform_monthly_SIP_inflows(instruction_line[-1])
