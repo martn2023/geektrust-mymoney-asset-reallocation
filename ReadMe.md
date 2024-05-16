@@ -1,3 +1,21 @@
+# AUTHOR'S CONTEXT
+[GeekTrust](https://www.geektrust.com/) is an AI-powered code-evaluation platform for job-seekers. After numerous failed challenges, this was my first one that earned 6/6 badges and a score above 80/100 (gold tier).
+
+#![1715876838954](https://github.com/martn2023/geektrust-mymoney/assets/42924628/253a76fc-e7b1-4cde-98e9-180da3c9a5b9)
+
+
+
+
+
+
+
+# Pre-requisites
+* Python 3.8/3.9
+* Pip
+
+
+
+
 # Pre-requisites
 * Python 3.8/3.9
 * Pip
