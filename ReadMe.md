@@ -1,10 +1,9 @@
 # AUTHOR'S CONTEXT
-[GeekTrust](https://www.geektrust.com/) is an AI-powered code-evaluation platform for job-seekers. After numerous failed challenges, this was my first one that earned 6/6 badges and a score above 80/100 (gold tier).
+[GeekTrust](https://www.geektrust.com/) is an AI-powered code-evaluation platform for job-seekers. After 5 failed challenges, this was my first deliverable that earned 6/6 badges and put me in the GOLD tier (scores over 80/100).
 
-#![1715876838954](https://github.com/martn2023/geektrust-mymoney/assets/42924628/253a76fc-e7b1-4cde-98e9-180da3c9a5b9)
+![1715876838954](https://github.com/martn2023/geektrust-mymoney/assets/42924628/253a76fc-e7b1-4cde-98e9-180da3c9a5b9)
 
-
-
+For details on the challenge's instructions, input/output requirements - see this link: https://www.geektrust.com/challenge/my-money
 
 
 
